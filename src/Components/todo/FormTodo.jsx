@@ -24,49 +24,51 @@ const FormTodo = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h1 className="card-title fs-3 mb-3">Added Todo</h1>
-      <form onSubmit={handleAddTodo}>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Title"
-            className="form-control"
-            name="title"
-            value={title}
-            onChange={handleInputChange}
-            required
-            minLength="6"
-          />
-        </div>
-        <div className="form-group mt-3">
-          <input
-            type="date"
-            placeholder="Text"
-            className="form-control"
-            name="date"
-            value={date}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="form-group mt-3">
-          <textarea
-            type="text"
-            placeholder="Description"
-            className="form-control"
-            name="description"
-            value={description}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-group mt-3 d-flex justify-content-between">
-          <button className="btn btn-primary">Submit</button>
-          <Link className="btn btn-danger" to="/">
-            Back
-          </Link>
-        </div>
-      </form>
+    <div className="container formtodo__container">
+      <div className="formtodo__body card-footer rounded p-4 shadow">
+        <h1 className="card-title fs-3 mb-3">Added Todo</h1>
+        <form onSubmit={handleAddTodo}>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Title"
+              className="form-control"
+              name="title"
+              value={title}
+              onChange={handleInputChange}
+              required
+              minLength="6"
+            />
+          </div>
+          <div className="form-group mt-3">
+            <input
+              type="date"
+              placeholder="Text"
+              className="form-control"
+              name="date"
+              value={date}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="form-group mt-3">
+            <textarea
+              type="text"
+              placeholder="Description"
+              className="form-control"
+              name="description"
+              value={description}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="form-group mt-3 d-flex justify-content-between">
+            <button className="btn btn-primary">Submit</button>
+            <Link className="btn btn-danger" to="/">
+              Back
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
