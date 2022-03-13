@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { verifyAsynctoken } from "../actions/auth";
-import TodoRouter from "../Components/TodoRouter";
+import TodoRouter from "../components/TodoRouter";
 import AuthRouter from "./AuthRouter";
 import PrivateRouter from "./PrivateRouter";
 import PublicRouter from "./PublicRouter";
-import Loading from "../Components/loading/Loading.jsx";
+import Loading from "../components/loading/Loading.jsx";
 import { desactiveLoading } from "../actions/ui";
 
 const AppRouter = () => {
