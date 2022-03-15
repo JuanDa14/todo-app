@@ -2,16 +2,18 @@ import { types } from "../types/types";
 import { toast } from "react-hot-toast";
 import { fetchTokenHelper } from "../helpers/fetchToken";
 import { desactiveLoading } from "./ui";
+import { verifyTokenStore } from "../helpers/token-store";
 
 export const getAsyncTodo = () => {
   return async (dispatch) => {
-    if (!localStorage.getItem("token")) {
-      return toast.error("Token is not valid");
-    }
-
-    const token = localStorage.getItem("token");
     try {
-      const { ok, todos } = await fetchTokenHelper("/todo", "GET", {}, token);
+      const token = verifyTokenStore();
+
+      if (!token) {
+        return toast.error("Token is not valid");
+      }
+
+      const { ok, todos } = await fetchTokenHelper("/todo", "GET", token);
 
       if (!ok) {
         return toast.error("Error fetching todos");
@@ -33,18 +35,18 @@ export const addAsyncTodo = (values) => {
   return async (dispatch) => {
     const toastId = toast.loading("loading...");
 
-    if (!localStorage.getItem("token")) {
-      return toast.error("Token is not valid");
-    }
-
     try {
-      const token = localStorage.getItem("token");
+      const token = verifyTokenStore();
+
+      if (!token) {
+        return toast.error("Token is not valid");
+      }
+
       const { ok, todo } = await fetchTokenHelper(
         "/todo",
         "POST",
-        values,
         token,
-        ""
+        values
       );
 
       if (!ok) {
@@ -68,13 +70,14 @@ export const removeAsyncTodo = (id) => {
   return async (dispatch) => {
     const toastId = toast.loading("loading...");
 
-    if (!localStorage.getItem("token")) {
-      return toast.error("Token is not valid");
-    }
-
     try {
-      const token = localStorage.getItem("token");
-      const { ok } = await fetchTokenHelper("/todo", "DELETE", {}, token, id);
+      const token = verifyTokenStore();
+
+      if (!token) {
+        return toast.error("Token is not valid");
+      }
+
+      const { ok } = await fetchTokenHelper("/todo", "DELETE", token, {}, id);
 
       if (!ok) {
         return toast.error("Error fetching todos");
@@ -96,18 +99,19 @@ const removeSyncTodo = (id) => ({
 export const updatedAsyncTodo = (id, pending) => {
   return async (dispatch) => {
     const toastId = toast.loading("loading...");
-    console.log(pending);
-    if (!localStorage.getItem("token")) {
-      return toast.error("Token is not valid");
-    }
 
     try {
-      const token = localStorage.getItem("token");
+      const token = verifyTokenStore();
+
+      if (!token) {
+        return toast.error("Token is not valid");
+      }
+
       const { ok } = await fetchTokenHelper(
         "/todo",
         "PUT",
-        { pending: !pending },
         token,
+        { pending: !pending },
         id
       );
 

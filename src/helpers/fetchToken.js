@@ -3,8 +3,8 @@ const base = process.env.REACT_APP_API_URL;
 export const fetchTokenHelper = async (
   endpoint = "",
   method = "",
-  body = {},
   token = "",
+  body = {},
   id = ""
 ) => {
   try {
@@ -12,7 +12,6 @@ export const fetchTokenHelper = async (
       const resp = await fetch(`${base}${endpoint}`, {
         method,
         headers: {
-          "Content-type": "application/json",
           "x-token": token,
         },
       });
@@ -29,7 +28,7 @@ export const fetchTokenHelper = async (
           "Content-type": "application/json",
           "x-token": token,
         },
-        body: method === "PUT" ? JSON.stringify(body) : JSON.stringify({}),
+        body: JSON.stringify(body),
       });
 
       const data = await resp.json();

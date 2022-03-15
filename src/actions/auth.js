@@ -3,6 +3,7 @@ import { types } from "../types/types";
 import { activeLoading, desactiveLoading } from "./ui";
 import { toast } from "react-hot-toast";
 import { getAsyncTodo } from "./todo";
+import { fetchTokenHelper } from "../helpers/fetchToken";
 
 export const loginAsyncUser = (values) => {
   return async (dispatch) => {
@@ -16,8 +17,8 @@ export const loginAsyncUser = (values) => {
       );
 
       if (!ok) {
-        toast.error("Wrong Credentials!");
         dispatch(desactiveLoading());
+        toast.error("Wrong Credentials!");
         throw new Error("Algo salio mal");
       }
 
@@ -36,12 +37,16 @@ export const verifyAsynctoken = (token) => {
     try {
       dispatch(activeLoading());
 
-      const { ok, username, uid } = await fetchHelper("/token", "POST", token);
+      const { ok, username, uid } = await fetchTokenHelper(
+        "/token",
+        "GET",
+        token
+      );
 
       if (!ok) {
-        toast.error("Session Finished!");
         localStorage.clear();
         dispatch(desactiveLoading());
+        toast.error("Session Finished!");
         throw new Error("Algo salio mal");
       }
 
@@ -65,8 +70,8 @@ export const registerAsyncUser = (values) => {
       );
 
       if (!ok) {
-        toast.error("Something went wrong!");
         dispatch(desactiveLoading());
+        toast.error("Something went wrong!");
         throw new Error("Algo salio mal");
       }
 
