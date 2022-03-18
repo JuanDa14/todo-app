@@ -3,22 +3,26 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { loginAsyncUser } from "../actions/auth";
 import { Toaster } from "react-hot-toast";
+import { GoogleLogin } from "react-google-login";
 import useForm from "../hooks/useForm";
 
 const LoginScreen = () => {
-  const [formValues, handleInputChange, reset] = useForm({
-    username: "",
+  const [formValues, handleInputChange] = useForm({
+    email: "",
     password: "",
   });
 
   const dispatch = useDispatch();
 
-  const { username, password } = formValues;
+  const { email, password } = formValues;
 
   const handleSetValues = (e) => {
     e.preventDefault();
-    dispatch(loginAsyncUser({ email: username, password }));
-    reset();
+    dispatch(loginAsyncUser({ email, password }, "/login"));
+  };
+
+  const responseGoogle = ({ tokenId }) => {
+    dispatch(loginAsyncUser({ tokenId }, "/google"));
   };
 
   return (
@@ -37,12 +41,12 @@ const LoginScreen = () => {
               <form onSubmit={handleSetValues} className="login-form">
                 <div className="form-group">
                   <input
-                    type="text"
+                    type="email"
                     className="form-control input_login rounded mt-3"
-                    placeholder="Username"
+                    placeholder="Email"
                     required
-                    name="username"
-                    value={username}
+                    name="email"
+                    value={email}
                     onChange={handleInputChange}
                     minLength="3"
                   />
@@ -57,20 +61,31 @@ const LoginScreen = () => {
                     value={password}
                     onChange={handleInputChange}
                     minLength="6"
+                    autoComplete="false"
                   />
                 </div>
                 <div className="form-group">
                   <button
                     type="submit"
-                    className="form-control input_login btn btn-primary rounded submit px-3 mt-3"
+                    className="form-control input_login btn btn-primary rounded mt-3"
                   >
                     Login
                   </button>
                 </div>
+
+                <GoogleLogin
+                  className="input_login rounded px-3 mt-2 text-center"
+                  clientId={process.env.REACT_APP_GOOGLE_ID_CLIENT}
+                  onSuccess={responseGoogle}
+                  onFailure={responseGoogle}
+                  cookiePolicy={"single_host_origin"}
+                ></GoogleLogin>
+
                 <div className="form-group d-md-flex">
                   <div className="text-md-left text-center mt-3">
                     <Link to="/auth/register">Create new account</Link>
                   </div>
+
                   {/* <div className="text-md-right text-center mt-3">
                     <Link to="/">Forgot Password</Link>
                   </div> */}

@@ -5,20 +5,20 @@ import { toast } from "react-hot-toast";
 import { getAsyncTodo } from "./todo";
 import { fetchTokenHelper } from "../helpers/fetchToken";
 
-export const loginAsyncUser = (values) => {
+export const loginAsyncUser = (values, endpoint) => {
   return async (dispatch) => {
     try {
       dispatch(activeLoading());
 
       const { ok, token, name, uid } = await fetchHelper(
-        "/login",
+        endpoint,
         "POST",
         values
       );
 
       if (!ok) {
-        dispatch(desactiveLoading());
         toast.error("Wrong Credentials!");
+        dispatch(desactiveLoading());
         throw new Error("Algo salio mal");
       }
 
@@ -45,8 +45,8 @@ export const verifyAsynctoken = (token) => {
 
       if (!ok) {
         localStorage.clear();
-        dispatch(desactiveLoading());
         toast.error("Session Finished!");
+        dispatch(desactiveLoading());
         throw new Error("Algo salio mal");
       }
 
@@ -70,8 +70,8 @@ export const registerAsyncUser = (values) => {
       );
 
       if (!ok) {
-        dispatch(desactiveLoading());
         toast.error("Something went wrong!");
+        dispatch(desactiveLoading());
         throw new Error("Algo salio mal");
       }
 

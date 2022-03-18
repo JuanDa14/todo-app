@@ -51,6 +51,7 @@ const RegisterScreen = () => {
                     value={username}
                     onChange={handleInputChange}
                     minLength="3"
+                    autoComplete="false"
                   />
                 </div>
                 <div className="form-group">
@@ -62,6 +63,7 @@ const RegisterScreen = () => {
                     name="email"
                     value={email}
                     onChange={handleInputChange}
+                    autoComplete="false"
                   />
                 </div>
                 <div className="form-group d-flex">
@@ -73,6 +75,7 @@ const RegisterScreen = () => {
                     name="password"
                     value={password}
                     onChange={handleInputChange}
+                    autoComplete="false"
                     minLength="6"
                   />
                 </div>
@@ -85,6 +88,7 @@ const RegisterScreen = () => {
                     name="password2"
                     value={password2}
                     onChange={handleInputChange}
+                    autoComplete="false"
                     minLength="6"
                   />
                 </div>
@@ -98,9 +102,7 @@ const RegisterScreen = () => {
                 </div>
                 <div className="form-group d-md-flex">
                   <div className="w-100 text-center mt-3">
-                    <Link to="/auth/login">
-                      You already have an account?
-                    </Link>
+                    <Link to="/auth/login">You already have an account?</Link>
                   </div>
                 </div>
               </form>
