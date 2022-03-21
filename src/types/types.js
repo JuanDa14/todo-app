@@ -8,6 +8,8 @@ export const types = {
   loginUser: "[auth] loginUser",
   registerUser: "[auth] registerUser",
   logoutUser: "[auth] logoutUser",
+  tokenExpired: "[auth] tokenExpired",
+  tokenNotExpired: "[auth] tokenNotExpired",
 
   activeLoading: "[ui] activeLoading",
   desactiveLoading: "[ui] desactiveLoading",

@@ -20,7 +20,7 @@ const NavBarScreen = () => {
         <ul className="navbar-nav d-flex flex-row">
           <li className="nav-item">
             <span className="nav-link active d-none d-sm-flex">
-              {user.name}
+              {user.username}
             </span>
           </li>
           <li className="nav-item">

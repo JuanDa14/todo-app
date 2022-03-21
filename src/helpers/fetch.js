@@ -11,7 +11,6 @@ export const fetchHelper = async (endpoint = "", method = "", body = {}) => {
     });
 
     const data = await resp.json();
-
     return data;
   } catch (error) {
     console.log(error);

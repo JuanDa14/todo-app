@@ -49,6 +49,8 @@ export const addAsyncTodo = (values) => {
         values
       );
 
+      console.log(ok);
+
       if (!ok) {
         return toast.error("Error fetching todos");
       }

@@ -34,17 +34,16 @@ const RegisterScreen = () => {
           <div className="col-md-7 col-lg-5">
             <div className="login-wrap p-4 p-md-5 shadow p-3 mb-5 bg-body rounded">
               <div className="d-flex align-items-center justify-content-center">
-                <span className="fa-solid fa-user rounded-circle"></span>
+                <span className="fa-solid fa-user rounded-circle icon"></span>
               </div>
-              <div className="icon d-flex align-items-center justify-content-center">
-                <span className="fa fa-user-o"></span>
-              </div>
+
               <h3 className="text-center mb-4">Register Account</h3>
+
               <form onSubmit={handleSetValues} className="login-form">
-                <div className="form-group">
+                <div className="mb-2">
                   <input
                     type="text"
-                    className="form-control rounded-left mt-3"
+                    className="form-control input_login rounded"
                     placeholder="Username"
                     required
                     name="username"
@@ -54,10 +53,10 @@ const RegisterScreen = () => {
                     autoComplete="false"
                   />
                 </div>
-                <div className="form-group">
+                <div className="mb-2">
                   <input
                     type="email"
-                    className="form-control rounded-left mt-3"
+                    className="form-control input_login rounded"
                     placeholder="Email"
                     required
                     name="email"
@@ -66,10 +65,10 @@ const RegisterScreen = () => {
                     autoComplete="false"
                   />
                 </div>
-                <div className="form-group d-flex">
+                <div className="mb-2">
                   <input
                     type="password"
-                    className="form-control rounded-left mt-3"
+                    className="form-control input_login rounded"
                     placeholder="Password"
                     required
                     name="password"
@@ -82,7 +81,7 @@ const RegisterScreen = () => {
                 <div className="form-group">
                   <input
                     type="password"
-                    className="form-control rounded-left mt-3"
+                    className="form-control input_login rounded"
                     placeholder="Repeat Password"
                     required
                     name="password2"
@@ -92,16 +91,18 @@ const RegisterScreen = () => {
                     minLength="6"
                   />
                 </div>
+
                 <div className="form-group">
                   <button
                     type="submit"
-                    className="form-control btn btn-primary rounded submit px-3 mt-3"
+                    className="form-control input_login btn btn-primary rounded mt-3"
                   >
                     Register
                   </button>
                 </div>
-                <div className="form-group d-md-flex">
-                  <div className="w-100 text-center mt-3">
+
+                <div className="mt-2">
+                  <div className="text-center">
                     <Link to="/auth/login">You already have an account?</Link>
                   </div>
                 </div>

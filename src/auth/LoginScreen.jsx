@@ -21,8 +21,12 @@ const LoginScreen = () => {
     dispatch(loginAsyncUser({ email, password }, "/login"));
   };
 
-  const responseGoogle = ({ tokenId }) => {
+  const handleLoginGoogle = ({ tokenId }) => {
     dispatch(loginAsyncUser({ tokenId }, "/google"));
+  };
+
+  const handleErrorGoogle = ({ error }) => {
+    console.log(error);
   };
 
   return (
@@ -32,11 +36,9 @@ const LoginScreen = () => {
           <div className="col-md-7 col-lg-5">
             <div className="login-wrap p-4 p-md-5 shadow p-3 mb-5 bg-body rounded">
               <div className="d-flex align-items-center justify-content-center">
-                <span className="fa-solid fa-user rounded-circle"></span>
+                <span className="fa-solid fa-user rounded-circle icon"></span>
               </div>
-              <div className="icon d-flex align-items-center justify-content-center">
-                <span className="fa fa-user-o"></span>
-              </div>
+
               <h3 className="text-center mb-4">Sign In</h3>
               <form onSubmit={handleSetValues} className="login-form">
                 <div className="form-group">
@@ -51,10 +53,20 @@ const LoginScreen = () => {
                     minLength="3"
                   />
                 </div>
+
+                <div className="login__link">
+                  <Link
+                    to="/auth/forgotpassword"
+                    className="login__link-forgotpassword"
+                  >
+                    Forgot Password
+                  </Link>
+                </div>
+
                 <div className="form-group d-flex">
                   <input
                     type="password"
-                    className="form-control input_login rounded mt-3"
+                    className="form-control input_login rounded"
                     placeholder="Password"
                     required
                     name="password"
@@ -76,19 +88,15 @@ const LoginScreen = () => {
                 <GoogleLogin
                   className="input_login rounded px-3 mt-2 text-center"
                   clientId={process.env.REACT_APP_GOOGLE_ID_CLIENT}
-                  onSuccess={responseGoogle}
-                  onFailure={responseGoogle}
+                  onSuccess={handleLoginGoogle}
+                  onFailure={handleErrorGoogle}
                   cookiePolicy={"single_host_origin"}
                 ></GoogleLogin>
 
                 <div className="form-group d-md-flex">
-                  <div className="text-md-left text-center mt-3">
+                  <div className="text-md-left text-center mt-3 w-100">
                     <Link to="/auth/register">Create new account</Link>
                   </div>
-
-                  {/* <div className="text-md-right text-center mt-3">
-                    <Link to="/">Forgot Password</Link>
-                  </div> */}
                 </div>
               </form>
             </div>
