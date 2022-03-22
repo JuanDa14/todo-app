@@ -1,74 +1,84 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import DateTimePicker from "react-datetime-picker";
+import { useDispatch } from "react-redux";
+
 import { addAsyncTodo } from "../../actions/todo";
+import { closeModal } from "../../actions/ui";
+
 import useForm from "../../hooks/useForm";
 
 const FormTodo = () => {
   const [formValues, handleInputChange] = useForm({
     title: "",
     description: "",
-    date: "",
   });
 
-  const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
-  const navigate = useNavigate();
+  const [date, setDate] = useState(new Date());
 
-  const { title, description, date } = formValues;
+  const dispatch = useDispatch();
+
+  const { title, description } = formValues;
 
   const handleAddTodo = (e) => {
     e.preventDefault();
-    dispatch(addAsyncTodo({ ...formValues, userId: user.uid }));
-    navigate("/");
+    dispatch(addAsyncTodo({ ...formValues, date }));
+    dispatch(closeModal());
+  };
+
+  const handleDateChange = (e) => {
+    setDate(e);
   };
 
   return (
-    <div className="container formtodo__container">
-      <div className="formtodo__body card-footer rounded p-4 shadow">
-        <h1 className="card-title fs-3 mb-3">Added Todo</h1>
-        <form onSubmit={handleAddTodo}>
-          <div className="form-group">
-            <input
-              type="text"
-              placeholder="Title"
-              className="form-control"
-              name="title"
-              value={title}
-              onChange={handleInputChange}
-              required
-              minLength="6"
-            />
-          </div>
-          <div className="form-group mt-3">
-            <input
-              type="date"
-              placeholder="Text"
-              className="form-control"
-              name="date"
-              value={date}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="form-group mt-3">
-            <textarea
-              type="text"
-              placeholder="Description"
-              className="form-control"
-              name="description"
-              value={description}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="form-group mt-3 d-flex justify-content-between">
-            <button className="btn btn-primary">Submit</button>
-            <Link className="btn btn-danger" to="/">
-              Back
-            </Link>
-          </div>
-        </form>
-      </div>
+    <div className="container">
+      <h1 className="card-title fs-5 mb-3">New Todo</h1>
+      <hr />
+      <form onSubmit={handleAddTodo}>
+        <div className="form-group mt-3">
+          <p className="mb-2">Date:</p>
+          <DateTimePicker
+            className="form-control"
+            value={date}
+            onChange={handleDateChange}
+            minDate={new Date()}
+            required
+          />
+        </div>
+
+        <div className="form-group mt-3">
+          <p className="mb-2">Title:</p>
+          <input
+            type="text"
+            placeholder="Example : Learn flutter "
+            className="form-control"
+            name="title"
+            value={title}
+            onChange={handleInputChange}
+            required
+            minLength="6"
+          />
+        </div>
+
+        <div className="form-group mt-3">
+          <p className="mb-2">Description:</p>
+          <textarea
+            type="text"
+            placeholder="Example : Learn flutter for saturday"
+            className="form-control"
+            name="description"
+            value={description}
+            onChange={handleInputChange}
+            rows="5"
+            required
+          />
+        </div>
+
+        <div className="form-group mt-4 w-100">
+          <button className="btn btn-outline-primary w-100">
+            <i className="fa-solid fa-plus"></i> Submit
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

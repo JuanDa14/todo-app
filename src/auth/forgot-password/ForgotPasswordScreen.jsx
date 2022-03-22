@@ -1,5 +1,4 @@
 import React from "react";
-import { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { forgotAsyncPassword } from "../../actions/auth";
@@ -66,7 +65,6 @@ const ForgotPasswordScreen = () => {
           </div>
         </div>
       </div>
-      <Toaster position="bottom-right" reverseOrder={false} />;
     </div>
   );
 };

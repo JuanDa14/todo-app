@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
-import toast, { Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 import useForm from "../../hooks/useForm";
 import { resetAsyncPassword } from "../../actions/auth";
@@ -87,7 +87,6 @@ const ResetPasswordScreen = () => {
           </div>
         </div>
       </div>
-      <Toaster position="bottom-right" reverseOrder={false} />;
     </div>
   );
 };

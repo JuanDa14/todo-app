@@ -13,4 +13,6 @@ export const types = {
 
   activeLoading: "[ui] activeLoading",
   desactiveLoading: "[ui] desactiveLoading",
+  openModal: "[ui] openModal",
+  closeModal: "[ui] closeModal",
 };

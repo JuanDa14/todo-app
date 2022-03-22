@@ -1,9 +1,9 @@
-import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { loginAsyncUser } from "../actions/auth";
-import { Toaster } from "react-hot-toast";
+import { loginAsyncFacebook, loginAsyncUser } from "../actions/auth";
 import { GoogleLogin } from "react-google-login";
+import FacebookLogin from "react-facebook-login";
+
 import useForm from "../hooks/useForm";
 
 const LoginScreen = () => {
@@ -27,6 +27,10 @@ const LoginScreen = () => {
 
   const handleErrorGoogle = ({ error }) => {
     console.log(error);
+  };
+
+  const handleLoginFacebook = ({ accessToken }) => {
+    dispatch(loginAsyncFacebook(accessToken));
   };
 
   return (
@@ -53,7 +57,6 @@ const LoginScreen = () => {
                     minLength="3"
                   />
                 </div>
-
                 <div className="login__link">
                   <Link
                     to="/auth/forgotpassword"
@@ -62,7 +65,6 @@ const LoginScreen = () => {
                     Forgot Password
                   </Link>
                 </div>
-
                 <div className="form-group d-flex">
                   <input
                     type="password"
@@ -79,7 +81,7 @@ const LoginScreen = () => {
                 <div className="form-group">
                   <button
                     type="submit"
-                    className="form-control input_login btn btn-primary rounded mt-3"
+                    className="form-control input_login btn btn-secondary rounded mt-3"
                   >
                     Login
                   </button>
@@ -91,7 +93,17 @@ const LoginScreen = () => {
                   onSuccess={handleLoginGoogle}
                   onFailure={handleErrorGoogle}
                   cookiePolicy={"single_host_origin"}
+                  autoLoad={false}
                 ></GoogleLogin>
+
+                <FacebookLogin
+                  cssClass="btn btn-primary mt-2 input_login text-center"
+                  appId={process.env.REACT_APP_FACEBOOK_ID}
+                  callback={handleLoginFacebook}
+                  textButton=" Sign in with Facebook"
+                  autoLoad={false}
+                  icon="fa-brands fa-facebook-square fs-4"
+                ></FacebookLogin>
 
                 <div className="form-group d-md-flex">
                   <div className="text-md-left text-center mt-3 w-100">
@@ -103,7 +115,6 @@ const LoginScreen = () => {
           </div>
         </div>
       </div>
-      <Toaster position="bottom-right" reverseOrder={false} />;
     </div>
   );
 };

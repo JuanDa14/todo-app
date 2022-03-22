@@ -7,3 +7,11 @@ export const activeLoading = () => ({
 export const desactiveLoading = () => ({
   type: types.desactiveLoading,
 });
+
+export const openModal = () => ({
+  type: types.openModal,
+});
+
+export const closeModal = () => ({
+  type: types.closeModal,
+});

@@ -1,6 +1,18 @@
 .wrap-button {
-  bottom: 20px;
-  padding: 10px;
+  bottom: 10px;
   position: fixed;
   right: 10px;
+  padding: 1.5rem;
+}
+
+@media (max-width: 992px) {
+  .wrap-button {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrap-button {
+    padding: 0.7rem;
+  }
 }

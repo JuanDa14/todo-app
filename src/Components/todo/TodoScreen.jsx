@@ -1,37 +1,36 @@
 import TodoCard from "./TodoCard";
 import AddTodo from "./AddTodo";
 import { useSelector } from "react-redux";
-import { Toaster } from "react-hot-toast";
 import EmptyTodos from "../EmptyTodo/EmptyTodos";
+import Modal from "../modal/Modal";
 
 const TodoScreen = () => {
   const todos = useSelector((state) => state.todos);
 
   if (todos.length === 0) {
     return (
-      <main>
-        <div className="emptytodo__container">
+      <div className="container">
+        <Modal />
+        <main className="emptytodo__container">
           <EmptyTodos />
           <AddTodo />
-        </div>
-      </main>
+        </main>
+      </div>
     );
   }
 
   return (
-    <main>
-      <div className="mt-4">
-        <div className="container-fluid">
-          <div className="row">
-            {todos.map((todo) => (
-              <TodoCard key={todo._id} {...todo} />
-            ))}
-          </div>
+    <div className="container">
+      <Modal />
+      <main>
+        <div className="row">
+          {todos.map((todo) => (
+            <TodoCard key={todo._id} {...todo} />
+          ))}
         </div>
-        <AddTodo />
-        <Toaster position="bottom-right" reverseOrder={false} />
-      </div>
-    </main>
+      </main>
+      <AddTodo />
+    </div>
   );
 };
 

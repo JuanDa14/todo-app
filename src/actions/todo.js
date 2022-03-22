@@ -15,9 +15,14 @@ export const getAsyncTodo = () => {
 
       const { ok, todos } = await fetchTokenHelper("/todo", "GET", token);
 
+      todos.sort(() => {
+        return -1;
+      });
+
       if (!ok) {
         return toast.error("Error fetching todos");
       }
+
       dispatch(getSyncTodo(todos));
       dispatch(desactiveLoading());
     } catch (error) {
@@ -48,8 +53,6 @@ export const addAsyncTodo = (values) => {
         token,
         values
       );
-
-      console.log(ok);
 
       if (!ok) {
         return toast.error("Error fetching todos");

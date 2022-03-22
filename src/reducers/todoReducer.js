@@ -11,7 +11,7 @@ export const todoReducer = (state = initialState, action) => {
       return [];
 
     case types.addTodo:
-      return [...state, action.payload];
+      return [action.payload, ...state];
 
     case types.removeTodo:
       return state.filter((todo) => todo._id !== action.payload);

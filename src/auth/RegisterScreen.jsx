@@ -1,12 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { registerAsyncUser } from "../actions/auth";
 import useForm from "../hooks/useForm";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const RegisterScreen = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [formValues, handleInputChange, reset] = useForm({
     username: "",
@@ -24,6 +25,7 @@ const RegisterScreen = () => {
       return reset();
     } else {
       dispatch(registerAsyncUser({ username, email, password }));
+      return navigate("/auth/login", { replace: true });
     }
   };
 
@@ -111,7 +113,6 @@ const RegisterScreen = () => {
           </div>
         </div>
       </div>
-      <Toaster position="bottom-right" reverseOrder={false} />
     </div>
   );
 };

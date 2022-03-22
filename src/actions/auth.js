@@ -36,6 +36,37 @@ export const loginAsyncUser = (body, endpoint) => {
   };
 };
 
+export const loginAsyncFacebook = (accessToken) => {
+  return async (dispatch) => {
+    try {
+      dispatch(activeLoading());
+
+      const { name, id } = await fetchHelper(
+        `https://graph.facebook.com/me?access_token=${accessToken}`,
+        "GET"
+      );
+
+      const { ok, token, username, uid, msg } = await fetchHelper(
+        "/facebook",
+        "POST",
+        { username: name, id }
+      );
+
+      if (!ok) {
+        toast.error(msg);
+        dispatch(desactiveLoading());
+        throw new Error("Something went wrong");
+      }
+
+      localStorage.setItem("token", token);
+      dispatch(loginSyncUser({ username, uid }));
+      dispatch(getAsyncTodo());
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const verifyAsynctoken = (token) => {
   return async (dispatch) => {
     try {
